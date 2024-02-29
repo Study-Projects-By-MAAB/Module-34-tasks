@@ -4,26 +4,35 @@ Single data details: https://openapi.programming-hero.com/api/ai/tool/${id}
 
 Single data Example: https://openapi.programming-hero.com/api/ai/tool/01 */
 
-const loadData = async (displayMore) => {
+const loadData = async (displayMore, isShortButtonClicked) => {
     // try {
     const res = await fetch('https://openapi.programming-hero.com/api/ai/tools')
     const data = await res.json()
     const cards = data.data.tools
-    displayCards(cards, displayMore)
+    displayCards(cards, displayMore, isShortButtonClicked)
     // }
     // catch {
     //     console.log('error occur');
     // }
 }
+const shortByDateButton = () => {
+    isShortButtonClicked = true
+    loadData(false, isShortButtonClicked)
 
+}
 
-const displayCards = (cards, displayMore) => {
-    // console.log(cards);
+const displayCards = (cards, displayMore, isShortButtonClicked) => {
+    console.log(cards);
 
     const sectionContainer = document.getElementById('card-container')
     sectionContainer.textContent = ''
     const seeMoreDiv = document.getElementById('see-more-div')
-
+    if (isShortButtonClicked) {
+        cards.sort((a, b) => new Date(a.published_in) - new Date(b.published_in))
+    }
+    else {
+        cards = cards
+    }
 
     if (cards.length > 6 && !displayMore) {
         cards = cards.slice(0, 6)
@@ -34,8 +43,7 @@ const displayCards = (cards, displayMore) => {
         seeMoreDiv.classList.add('hidden')
     }
     cards.forEach(card => {
-        console.log(card);
-        card.features.map(feature => console.log(`<li>${feature}</li>`))
+        // console.log(card);
         const oneCard = document.createElement('div')
         oneCard.classList = `card w-full bg-base-100 p-6 shadow-xl`
         oneCard.innerHTML = `
@@ -43,36 +51,31 @@ const displayCards = (cards, displayMore) => {
         </figure>
         <div class="mt-6">
             <h2 class="card-title">Features</h2>
-            <ol id="LL" class="list-decimal pl-4 mt-4">
+            <ol class="list-decimal pl-4 mt-4 text-[#585858]">
                 ${card.features.map(feature => `<li>${feature}</li>`).join('')}
             </ol>
             <hr class="my-6">
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="mb-4 text-2xl font-semibold">${card.name}</h2>
-                    <p>${card.published_in}</p>
+                    <div class="flex items-center gap-2 text-[#585858]">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <p >${card.published_in}</p>
+                    </div>
                 </div>
                 <div class="card-actions justify-end">
-                    <button class="btn btn-lg btn-circle ">
-                    <i class="fa-solid fa-arrow-right text-[rgb(235,87,87)]"></i>
+                    <button class="btn btn-circle bg-[#fef7f7] border-none">
+                    <i class="fa-solid fa-arrow-right-long text-xl text-[rgb(235,87,87)]"></i>
                     </button>
                 </div>
             </div>
         </div>
         `
-
-        // const cardFeaturesArray = card.features
-        // const ol = document.getElementById('LL')
-        // console.log(ol);
-        // const cardFeatures = cardFeaturesArray.forEach(arrEle => {
-        //     const li = document.createElement('li')
-        //     li.innerText = arrEle
-        //     ol.appendChild(li)
-        // })
         // console.log(oneCard);
         sectionContainer.appendChild(oneCard)
     })
 }
+
 
 
 const seeMore = () => {
