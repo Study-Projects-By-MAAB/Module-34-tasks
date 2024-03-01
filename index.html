@@ -15,21 +15,11 @@
 <body>
     <header class="w-full text-center my-12 mx-auto font-semibold">
         <h2 class="text-[45px] mb-8">AI Universe Hub</h2>
-        <div><button onclick="shortByDateButton()" class="btn btn-error btn-lg text-white text-xl ">Sort By
-                Date</button></div>
+        <div><button id="short-date" onclick="shortByDateButton()" class="btn btn-error btn-lg text-white text-xl ">Sort By Date</button></div>
     </header>
     <!-- Open the modal using ID.showModal() method -->
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-            <h3 class="font-bold text-lg">Hello!</h3>
-            <p class="py-4">Press ESC key or click the button below to close</p>
-            <div class="modal-action">
-                <form method="dialog">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
-                </form>
-            </div>
-        </div>
+
     </dialog>
     <main class="max-w-[1500px] mx-auto min-h-screen mb-14">
         <!-- card container -->
