@@ -30,9 +30,9 @@ const displayCards = (cards, displayMore, isShortButtonClicked) => {
     if (isShortButtonClicked) {
         cards.sort((a, b) => new Date(a.published_in) - new Date(b.published_in))
     }
-    else {
-        cards = cards
-    }
+    // else {
+    //     cards = cards
+    // }
 
     if (cards.length > 6 && !displayMore) {
         cards = cards.slice(0, 6)
@@ -64,7 +64,7 @@ const displayCards = (cards, displayMore, isShortButtonClicked) => {
                     </div>
                 </div>
                 <div class="card-actions justify-end">
-                    <button class="btn btn-circle bg-[#fef7f7] border-none">
+                    <button onclick="openModal(); my_modal_5.showModal()" class="btn btn-circle bg-[#fef7f7] border-none">
                     <i class="fa-solid fa-arrow-right-long text-xl text-[rgb(235,87,87)]"></i>
                     </button>
                 </div>
@@ -76,7 +76,10 @@ const displayCards = (cards, displayMore, isShortButtonClicked) => {
     })
 }
 
-
+const openModal = () => {
+    console.log('open modal');
+}
+my_modal_5.showModal()
 
 const seeMore = () => {
     displayMore = true
